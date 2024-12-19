@@ -1,0 +1,123 @@
+// Variables de color y diseño
+:root {
+    --primary-color: #4A5568;
+    --secondary-color: #718096;
+    --background-color: #F7FAFC;
+    --text-color: #2D3748;
+    --accent-color: #4299E1;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    padding: 1rem;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+        text-align: center;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .error-message {
+        background-color: #FED7D7;
+        color: #9B2C2C;
+        padding: 0.75rem;
+        border-radius: 4px;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-color: var(--accent-color);
+                box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+            }
+        }
+    }
+
+    .form-actions {
+        margin-top: 1rem;
+
+        .btn-login {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: darken(#4299E1, 10%);
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+            }
+        }
+    }
+
+    .form-footer {
+        text-align: center;
+        margin-top: 1rem;
+        color: var(--secondary-color);
+
+        a {
+            color: var(--accent-color);
+            margin-left: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 480px) {
+    .login-wrapper {
+        max-width: 100%;
+        padding: 1rem;
+    }
+}

@@ -34,9 +34,9 @@ const Register = () => {
         }
 
         // Validación opcional para cigarrillos por día
-        if (formData.cigarettesPerDay !== '' && 
-            (isNaN(Number(formData.cigarettesPerDay)) || 
-             Number(formData.cigarettesPerDay) < 0)) {
+        if (formData.cigarettesPerDay !== '' &&
+            (isNaN(Number(formData.cigarettesPerDay)) ||
+                Number(formData.cigarettesPerDay) < 0)) {
             newErrors.cigarettesPerDay = 'Ingrese un número válido de cigarrillos';
         }
 
@@ -46,7 +46,7 @@ const Register = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -63,10 +63,10 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Resetear errores
         setErrors({});
-        
+
         // Validar formulario
         if (!validateForm()) {
             return;
@@ -75,18 +75,18 @@ const Register = () => {
         // Preparar datos para envío
         const submitData = {
             ...formData,
-            cigarettesPerDay: formData.cigarettesPerDay 
-                ? Number(formData.cigarettesPerDay) 
+            cigarettesPerDay: formData.cigarettesPerDay
+                ? Number(formData.cigarettesPerDay)
                 : 0
         };
 
         try {
             setIsSubmitting(true);
             const response = await registerUser(submitData);
-            
+
             // Manejar respuesta exitosa
             console.log('Registro exitoso:', response);
-            
+
             // Limpiar formulario
             setFormData({
                 username: '',
@@ -100,22 +100,22 @@ const Register = () => {
         } catch (error) {
             // Manejar errores de registro
             console.error('Error en registro:', error);
-            
+
             // Mostrar errores del servidor
             if (error.response && error.response.data) {
                 const serverErrors = error.response.data;
-                
+
                 // Mapear errores del servidor a los campos del formulario
                 const mappedErrors = {};
                 if (serverErrors.field) {
                     mappedErrors[serverErrors.field] = serverErrors.message;
                 }
-                
+
                 setErrors(mappedErrors);
             } else {
                 // Error genérico
-                setErrors({ 
-                    submit: error.message || 'Error en el registro' 
+                setErrors({
+                    submit: error.message || 'Error en el registro'
                 });
             }
         } finally {
@@ -126,13 +126,13 @@ const Register = () => {
     return (
         <div className="register-container">
             <h2>Registro de Usuario</h2>
-            
+
             {errors.submit && (
                 <div className="error-message">
                     {errors.submit}
                 </div>
             )}
-            
+
             <form onSubmit={handleSubmit}>
                 {/* Campo de nombre de usuario */}
                 <div className="form-group">
@@ -204,8 +204,8 @@ const Register = () => {
                 </div>
 
                 {/* Botón de submit */}
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? 'Registrando...' : 'Registrarse'}
