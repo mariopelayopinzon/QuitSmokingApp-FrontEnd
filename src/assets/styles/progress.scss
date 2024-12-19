@@ -1,0 +1,87 @@
+.progress-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    color: #333;
+  }
+  
+  .progress-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+    }
+  
+    p {
+      color: #7f8c8d;
+    }
+  }
+  
+  .progress-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .progress-card {
+    background-color: #f4f6f7;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+  
+      .card-icon {
+        font-size: 2.5rem;
+        color: #3498db;
+        margin-right: 1rem;
+      }
+  
+      h3 {
+        color: #2c3e50;
+        margin: 0;
+      }
+    }
+  
+    .card-content {
+      .card-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2980b9;
+      }
+  
+      .card-description {
+        color: #7f8c8d;
+      }
+    }
+  }
+  
+  .progress-motivation {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+  
+    h2 {
+      color: #2c3e50;
+    }
+  
+    p {
+      color: #7f8c8d;
+    }
+  }

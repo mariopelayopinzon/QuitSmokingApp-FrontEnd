@@ -1,21 +1,54 @@
-import React from 'react';
-import { render } from 'react-router-dom';
-import { FaHome, FaChartLine, FaUser } from 'react-icons/fa';
-import '../../assets/styles/components/_navbar.scss'
+import React from 'react'; 
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'; 
+import { logout } from '../../redux/slices/logoutSlice.js'; 
+import { FaHome, FaChartLine, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 
-const Navbar = () => {
+import '../../assets/styles/components/_navbar.scss';
 
+function Navbar() { 
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(logout());
+  }; 
+  
+  return( 
+    <nav className='navbar'>
+      <div className='navbar-brand'>
+        <Link to="/">Quit Smoking App</Link>
+      </div>
+      <div className='navbar-menu'>
+        <Link to="/" className='nav-bar-item'>
+        <FaHome/> 
+        </Link>
 
-  return (
-    <nav className='navbar'>.
-    <ul>
-      <li>Home</li>
-      <li>Progress</li>
-      <li>Contact</li>
-      <li>About Us</li>
-    </ul>
+        { isAuthenticated ? (
+          <>
+            <Link to="/dashboard" className="navbar-item">
+              <FaChartLine /> Dashboard
+            </Link>
+            <Link to="/progress" className="navbar-item">
+              <FaChartLine /> Progress
+            </Link>
+            <button onClick={handleLogout} className="navbar-item logout-btn">
+              <FaSignOutAlt /> Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="navbar-item">
+              <FaSignInAlt /> Login
+            </Link>
+            <Link to="/register" className="navbar-item">
+              <FaUserPlus /> Register
+            </Link>
+          </>
+        )}
+      </div>
     </nav>
-  )
+  );
 }
-export default Navbar
+
+export default Navbar;
