@@ -104,7 +104,7 @@ export const completeOnboarding = createAsyncThunk(
   async (onboardingData, { rejectWithValue }) => {
     try {
       const response = await api.post('/user/onboarding', onboardingData);
-      return response.data; 
+return response.data; 
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Error al completar onboarding'); 
       
