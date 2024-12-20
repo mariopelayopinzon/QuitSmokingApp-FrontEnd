@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';;
-import axios from 'axios';
+import { api } from '../../services/api'; 
 
 export const fetchProgress = createAsyncThunk(
     'progress/fetchProgress',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get('/api/progress');
+            const response = api.post('/api/reduction/progress');
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);

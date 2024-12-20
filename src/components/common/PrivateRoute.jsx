@@ -33,9 +33,13 @@ export default function PrivateRoute() {
 
   useEffect(() => {
     const syncAuthState = async () => {
+      if (!isAuthenticated()) {
+        return <Navigate to="/login" replace />;
+      }
+
       if (token) {
         try {
-          await dispatch(validateToken(token));
+          validateToken(token);
           await dispatch(checkOnboardingStatus()).unwrap();
         } catch (error) {
           console.error('Auth Sync Error', error);
@@ -47,17 +51,13 @@ export default function PrivateRoute() {
     syncAuthState();
   }, [dispatch, token]);
 
-  const checkAuthentication = useCallback(() => {
-    return isAuthenticated() && reduxAuthenticated && !!token;
-  }, [reduxAuthenticated, token]);
+ 
 
   if (loading) {
     return <div className="loading-container">Cargando...</div>; // Componente de carga
   }
 
-  if (!checkAuthentication()) {
-    return <Navigate to="/login" replace />;
-  }
+ 
 
   const handleNavigation = (path) => {
     setNavigationAttempts((prev) => prev + 1);

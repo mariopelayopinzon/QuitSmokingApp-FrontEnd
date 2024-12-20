@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { api } from '../../services/api';
 
 export const validateToken = createAsyncThunk(
   'auth/validateToken',
@@ -39,19 +39,16 @@ const isTokenExpired = (token) => {
     }
 };
 
-// Configuración de axios
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
-  withCredentials: true
-});
+
 
 //Verificar estado onboarding 
 export const checkOnboardingStatus = createAsyncThunk(
   'auth/checkOnboardingStatus', 
   async (__,{ rejectWithValue}) => {
     try {
-      const response = await api.get('user/onboarding-status');
-      return response.data.hasCompleteOnboarding;
+      return true;
+      //const response = await api.get('/api/user/onboarding-status');
+      //return response.data.hasCompleteOnboarding;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Error al verificar estado de onboarding');
       
@@ -84,14 +81,14 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await api.post('/auth/login', credentials);
+      //const response = await api.post('/api/auth/login', credentials);
+      const response = await api.post('/api/auth/login', credentials);
       
-      const { token, user } = response.data;
-      
-      // Guardar token en localStorage
-      localStorage.setItem('token', token);
-      
-      return { user, token };
+      //const { token, user } = response.data
+      // Guardar token en localStoragedata;
+      localStorage.setItem('token', response.data.token);
+
+      return response.data
     } catch (error) {
       const message = error.response?.data?.message || 'Error de inicio de sesión';
       return rejectWithValue(message);
@@ -137,6 +134,7 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+      state.hasCompletedOnboarding = false;
     },
     
     // Resetear estado de autenticación

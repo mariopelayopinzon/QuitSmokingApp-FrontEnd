@@ -1,17 +1,20 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'; 
-import { logout } from '../../redux/slices/logoutSlice.js'; 
+import { logout } from '../../redux/slices/authSlice'; 
 import { FaHome, FaChartLine, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { useNavigate  } from 'react-router-dom';
 
 import '../../assets/styles/components/_navbar.scss';
 
 function Navbar() { 
   const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
     dispatch(logout());
+    navigate("/login")
   }; 
   
   return( 

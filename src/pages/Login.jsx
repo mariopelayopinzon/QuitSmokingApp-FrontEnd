@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/authService';
+import { loginUser } from '../redux/slices/authSlice';
 import '../assets/styles/login.scss';
 import { setAuthToken } from '../services/authService';
 import { useDispatch } from 'react-redux';
@@ -32,8 +32,10 @@ const Login = () => {
 
         try {
             const resultAction = await dispatch(loginUser (formData));
+
             if(loginUser.fulfilled.match(resultAction)) {
-                setAuthToken(resultAction.token);
+                console.log("resultAction.token",resultAction.payload?.token)
+                setAuthToken(resultAction.payload?.token);
             navigate('/dashboard');}
             
         } catch (error) {

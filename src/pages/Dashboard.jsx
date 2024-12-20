@@ -27,11 +27,11 @@ function Dashboard() {
     healthImprovement: 0,
     daysWithoutSmoking: 0
   });
-
+  
   useEffect(() => {
     // Cargar progreso y plan de reducción
     dispatch(fetchProgress());
-    dispatch(fetchReductionPlan());
+    // dispatch(fetchReductionPlan());
   }, [dispatch]);
 
   // Calcular estadísticas
