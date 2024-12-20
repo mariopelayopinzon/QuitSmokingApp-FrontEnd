@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { registerUser } from '../services/authService';
+import { registerUserService } from '../services/authService';
+import '../assets/styles/register.scss'
 
 const Register = () => {
     // Asegúrate de que todos los valores tengan un tipo y valor inicial definido
@@ -82,7 +83,7 @@ const Register = () => {
 
         try {
             setIsSubmitting(true);
-            const response = await registerUser(submitData);
+            const response = await registerUserService(submitData);
 
             // Manejar respuesta exitosa
             console.log('Registro exitoso:', response);

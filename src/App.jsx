@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import Navbar from './components/common/Navbar.jsx';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Progress from './pages/Progress';
+import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Progress from './pages/Progress.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import Onboarding from './pages/Onboarding.jsx'; // Importa el componente de Onboarding
 import PrivateRoute from './components/common/PrivateRoute.jsx';
 
 import './assets/styles/main.scss';
@@ -21,6 +22,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route 
+            path="/onboarding" 
+            element={
+              <PrivateRoute>
+                <Onboarding />
+              </PrivateRoute>
+            } 
+          />
           <Route 
             path="/dashboard" 
             element={

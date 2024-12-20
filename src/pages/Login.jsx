@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/authService';
 import '../assets/styles/login.scss';
+import { setAuthToken } from '../services/authService';
+import { useDispatch } from 'react-redux';
+import '../assets/styles/login.scss'
+
+
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -19,15 +24,18 @@ const Login = () => {
         }));
     };
 
+    const dispatch = useDispatch();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
 
         try {
-            const response = await loginUser(formData);
-            // Guardar token y redirigir
-            setAuthToken(response.token);
-            navigate('/dashboard');
+            const resultAction = await dispatch(loginUser (formData));
+            if(loginUser.fulfilled.match(resultAction)) {
+                setAuthToken(resultAction.token);
+            navigate('/dashboard');}
+            
         } catch (error) {
             setError(error.message);
         }

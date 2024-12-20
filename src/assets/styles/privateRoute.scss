@@ -1,0 +1,50 @@
+// privateRoute.scss
+
+.onboarding-redirect,
+.quit-plan-redirect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  text-align: center;
+  color: #333;
+
+  .lock-icon {
+    font-size: 3rem;
+    color: #4CAF50; // Color verde para el icono
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #4CAF50; // Color verde para el botón
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #45a049; // Color verde más oscuro al pasar el ratón
+    }
+  }
+}

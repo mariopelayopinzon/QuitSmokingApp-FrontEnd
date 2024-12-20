@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { registerUser } from './api.js';
 
 // Función para obtener puerto seguro
 const getSecurePort = () => {
     const safePorts = [3000, 5000, 5173, 8000, 8080, 6000];
-    const envPort = import.meta.env.VITE_API_PORT 
-        ? parseInt(import.meta.env.VITE_API_PORT) 
+    const envPort = import.meta.env.VITE_API_BASE_URL 
+        ? parseInt(import.meta.env.VITE_API_BASE_URL) 
         : 6000;
 
     // Verificar si el puerto está en la lista de puertos seguros
@@ -18,7 +19,7 @@ const getBaseURL = () => {
 };
 
 // Crear URL base
-const API_BASE_URL = getBaseURL();
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // Crear instancia de Axios con configuración mejorada
 const api = axios.create({
@@ -98,12 +99,12 @@ api.interceptors.response.use(
     }
 );
 
-export const registerUser = async (userData) => { 
+export const registerUserService = async (userData) => { 
     try {
         console.log('Intentando registrar usuario', userData); 
         console.log('URL de registro', `${API_BASE_URL}/api/auth/register`);
 
-        const response = await api.post('/api/auth/register', userData); 
+        const response = await registerUser(userData); 
 
         console.log('Respuesta de registro:', response.data); 
         return response.data;
@@ -129,7 +130,17 @@ export const loginUser = async (credentials) => {
     }
 };
 
-export const setAuthToken = (token) => {
+export const setAuthToken = (token) => { 
+    if (token) {
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        localStorage.setItem('token', token);
+    } else {
+        delete api.defaults.headers.common['Authorization']; 
+        localStorage.removeItem('token');
+    }
+}
+
+export const validateToken = (token) => {
     if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token); 
@@ -142,12 +153,12 @@ export const setAuthToken = (token) => {
 // Función para verificar autenticación
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');
-    return !!token;
+    return token
 };
 
 // Función de logout
 export const logout = () => {
-    setAuthToken(null);
+    validateToken(null);
 };
 
 export default api;
