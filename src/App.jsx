@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Onboarding from './pages/Onboarding.jsx'; // Importa el componente de Onboarding
 import PrivateRoute from './components/common/PrivateRoute.jsx';
 
+
 import './assets/styles/main.scss';
 
 function App() {
