@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Navigate, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import { FaLock } from 'react-icons/fa';
@@ -7,11 +7,9 @@ import { isAuthenticated, validateToken } from '../../services/authService';
 import { checkOnboardingStatus, logout } from '../../redux/slices/authSlice';
 import '../../assets/styles/privateRoute.scss';
 
-// Selectores memoizados
-const selectAuthState = (state) => state.auth;
-
+// Selector memoizado
 const selectAuthDetails = createSelector(
-  [selectAuthState],
+  [(state) => state.auth],
   (auth) => ({
     user: auth.user,
     isAuthenticated: auth.isAuthenticated,
@@ -24,19 +22,26 @@ const selectAuthDetails = createSelector(
 
 export default function PrivateRoute() {
   const dispatch = useDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
-  const [navigationAttempts, setNavigationAttempts] = useState(0);
 
-  // Usar selectores memoizados
-  const { user, isAuthenticated: reduxAuthenticated, token, loading, hasCompletedOnboarding, activeQuitPlan } = useSelector(selectAuthDetails);
+  const { 
+    isAuthenticated: reduxAuthenticated, 
+    token, 
+    loading,
+    hasCompletedOnboarding, 
+    activeQuitPlan 
+  } = useSelector(selectAuthDetails);
 
+  // Efecto principal de autenticación y navegación
   useEffect(() => {
-    const syncAuthState = async () => {
-      if (!isAuthenticated()) {
-        return <Navigate to="/login" replace />;
+    const checkAuthStatus = async () => {
+      // Verificar autenticación
+      if (!reduxAuthenticated) {
+        navigate('/login');
+        return;
       }
 
+      // Validar token
       if (token) {
         try {
           validateToken(token);
@@ -44,44 +49,40 @@ export default function PrivateRoute() {
         } catch (error) {
           console.error('Auth Sync Error', error);
           dispatch(logout());
+          navigate('/login');
         }
       }
+
+      // Verificar estado de onboarding
+      if (!hasCompletedOnboarding) {
+        navigate('/onboarding');
+        return;
+      }
+
+      // Verificar plan de reducción
+      if (!activeQuitPlan) {
+        navigate('/reduction-plan');
+        return;
+      }
     };
-    
-    syncAuthState();
-  }, [dispatch, token]);
 
- 
+    checkAuthStatus();
+  }, [
+    reduxAuthenticated, 
+    token, 
+    hasCompletedOnboarding, 
+    activeQuitPlan, 
+    dispatch, 
+    navigate
+  ]);
 
+  // Componente de carga
   if (loading) {
-    return <div className="loading-container">Cargando...</div>; // Componente de carga
+    return <div className="loading-container">Cargando...</div>;
   }
 
- 
-
-  const handleNavigation = (path) => {
-    setNavigationAttempts((prev) => prev + 1);
-    navigate(path, { state: { from: location.pathname, attempts: navigationAttempts }, replace: true });
-  };
-
-  const renderRedirect = (message, buttonText, path) => (
-    <div className="redirect">
-      <FaLock className="lock-icon" />
-      <h2>{message}</h2>
-      <button onClick={() => handleNavigation(path)} className="redirect-btn">
-        {buttonText}
-      </button>
-    </div>
-  );
-
-  if (!hasCompletedOnboarding) {
-    return renderRedirect('Completa tu perfil de fumador', 'Completar Perfil', '/onboarding');
-  }
-
-  if (!activeQuitPlan) {
-    return renderRedirect('Crea tu Plan para Dejar de Fumar', 'Crear Plan', '/create-plan');
-  }
-
-  // Renderiza las rutas protegidas
-  return <Outlet />;
+  // Renderizado condicional de rutas protegidas
+  return reduxAuthenticated && hasCompletedOnboarding && activeQuitPlan 
+    ? <Outlet /> 
+    : null;
 }

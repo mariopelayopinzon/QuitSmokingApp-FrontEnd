@@ -46,9 +46,9 @@ export const checkOnboardingStatus = createAsyncThunk(
   'auth/checkOnboardingStatus', 
   async (__,{ rejectWithValue}) => {
     try {
-      return true;
-      //const response = await api.get('/api/user/onboarding-status');
-      //return response.data.hasCompleteOnboarding;
+      // return false;
+      const response = await api.get('/api/user/reduction-plan');
+      return response.data.hasCompleteOnboarding;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Error al verificar estado de onboarding');
       

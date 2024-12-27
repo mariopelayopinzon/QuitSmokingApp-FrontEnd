@@ -137,7 +137,7 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
                 {/* Campo de nombre de usuario */}
                 <div className="form-group">
-                    <label htmlFor="username">Nombre de Usuario</label>
+                    <label htmlFor="username">Usuario</label>
                     <input
                         type="text"
                         id="username"
