@@ -5,8 +5,11 @@ export const fetchProgress = createAsyncThunk(
     'progress/fetchProgress',
     async (_, { rejectWithValue }) => {
         try {
-            const response = api.post('/api/reduction/progress');
-            return response.data;
+            const response = await api.post('/api/reduction/progress');
+            return {
+                cigarettesReduced: response.data.cigarettesReduced || 0, 
+                totalCigarettes: response.data.totalCigarettes || 0
+            }; 
         } catch (error) {
             return rejectWithValue(error.response.data);
 
@@ -32,10 +35,14 @@ const progressSlice = createSlice({
             state.cigarettesReduced = action.payload.cigarettesReduced; 
             state.totalCigarettes = action.payload.totalCigarettes; 
             state.loading = false; 
+            state.error = null; 
         })
         .addCase(fetchProgress.rejected, (state, action) => {
-            state.error = action.payload;
-            state.loadin = false; 
+            state.error = action.payload || 'An error ocurred'; 
+            state.loading = false; 
+
+            state.cigarettesReduced = 0; 
+            state.totalCigarettes = 0; 
         }); 
     }
 });

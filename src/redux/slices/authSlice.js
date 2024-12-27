@@ -81,14 +81,23 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      //const response = await api.post('/api/auth/login', credentials);
       const response = await api.post('/api/auth/login', credentials);
+
+      const { token, user } = response.data;
       
       //const { token, user } = response.data
       // Guardar token en localStoragedata;
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', token, response.data.token);
+      localStorage.setItem('user', JSON.stringify(user));
 
-      return response.data
+      return {
+        token, 
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email, 
+        }
+      }
     } catch (error) {
       const message = error.response?.data?.message || 'Error de inicio de sesión';
       return rejectWithValue(message);
@@ -124,6 +133,11 @@ const authSlice = createSlice({
     hasCompletedOnboarding: false, 
   },
   reducers: {
+    setCredentials: (state, action) => {
+      const { user, token } = action.payload; 
+      state.user = user;
+      state.token = token; 
+    },
     setOnboardingStatus: (state,action) => {
       state.hasCompletedOnboarding = action.payload;
     },

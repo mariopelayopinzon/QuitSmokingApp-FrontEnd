@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createReductionPlan } from '../redux/slices/reductionPlanSlice';
+import '../assets/styles/onboarding.scss'
 
 const Onboarding = () => {
   const dispatch = useDispatch();

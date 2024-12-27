@@ -1,112 +1,110 @@
-// onboarding.scss
-
 .onboarding-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-  
-    h1 {
-      color: #333;
-      font-size: 2rem;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-  
-    .reduction-plan-form {
-      width: 100%;
-      max-width: 500px;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-  
-      .form-group {
-        margin-bottom: 20px;
-  
-        label {
-          display: block;
-          margin-bottom: 8px;
-          color: #555;
-          font-weight: 600;
-        }
-  
-        input, 
-        select {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #e0e0e0;
-          border-radius: 5px;
-          font-size: 1rem;
-          transition: border-color 0.3s ease;
-  
-          &:focus {
-            outline: none;
-            border-color: #4CAF50;
-          }
-        }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+
+  h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .reduction-plan-form {
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+
+    .form-group {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
       }
-  
-      .strategy-description {
-        background-color: #f0f0f0;
-        border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 20px;
-        color: #666;
-        font-size: 0.9rem;
-        text-align: center;
-      }
-  
-      .submit-btn {
+
+      input, 
+      select {
         width: 100%;
-        padding: 12px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
         border-radius: 5px;
         font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-  
-        &:hover {
-          background-color: #45a049;
-        }
-  
-        &:disabled {
-          background-color: #cccccc;
-          cursor: not-allowed;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #4CAF50;
         }
       }
     }
-  
-    // Responsive adjustments
-    @media (max-width: 600px) {
-      .reduction-plan-form {
-        width: 90%;
-        padding: 20px;
-  
-        h1 {
-          font-size: 1.5rem;
-        }
-      }
+
+    .strategy-description {
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
     }
-  
-    // Animaciones sutiles
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #45a049;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
       }
-    }
-  
-    .fade-in {
-      animation: fadeIn 0.5s ease-out;
     }
   }
+
+  // Responsive adjustments
+  @media (max-width: 600px) {
+    .reduction-plan-form {
+      width: 90%;
+      padding: 20px;
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  // Animaciones sutiles
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+}

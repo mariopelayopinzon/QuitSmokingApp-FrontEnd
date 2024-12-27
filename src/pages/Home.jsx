@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaSmoking, FaHeartbeat, FaChartLine, FaSignInAlt } from 'react-icons/fa';
-import '../assets/styles/main.scss';
+import '../assets/styles/Home.scss';
 
 const Home = () => {
   return (

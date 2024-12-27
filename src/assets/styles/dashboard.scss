@@ -1,74 +1,147 @@
-// dashboard.scss
-
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-    color: #333;
-    font-family: 'Arial', sans-serif;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+
+  .dashboard-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+
     h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
       color: #4CAF50; // Color verde para un toque positivo
     }
-  
-    .progress-section {
-      width: 100%;
-      max-width: 600px;
-      margin-bottom: 30px;
+  }
+
+  .progress-overview {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 30px;
+
+    .progress-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       text-align: center;
-  
+      margin-bottom: 20px;
+
+      .icon {
+        font-size: 2rem;
+        color: #4CAF50;
+        margin-bottom: 10px;
+      }
+
       h2 {
         font-size: 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         color: #333;
-  
-        svg {
-          margin-right: 8px;
-          color: #4CAF50; // Color verde para el icono
-        }
       }
-  
+
       .progress-bar {
         background-color: #e0e0e0;
         border-radius: 25px;
         height: 20px;
         overflow: hidden;
         margin: 10px 0;
-  
+
         .progress-fill {
-          background-color: #4CAF50; // Color verde para el progreso
+          background-color: #4CAF50;
           height: 100%;
           transition: width 0.3s ease;
         }
       }
-  
+
       p {
         font-size: 1rem;
         color: #666;
       }
     }
-  
-    .quit-plan {
-      width: 100%;
-      max-width: 600px;
-      text-align: center;
-  
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-        color: #333;
-      }
-  
-      p {
-        font-size: 1rem;
-        color: #666;
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+
+      .stat-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+        .icon {
+          font-size: 1.5rem;
+          color: #4CAF50;
+          margin-bottom: 10px;
+        }
+
+        h3 {
+          font-size: 1rem;
+          color: #333;
+          margin-bottom: 5px;
+        }
+
+        p {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #4CAF50;
+        }
       }
     }
   }
+
+  .quit-plan {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .plan-details {
+      p {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  // Estilos de carga y error
+  .loading, .error {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    font-size: 1rem;
+  }
+
+  .loading {
+    color: #4CAF50;
+  }
+
+  .error {
+    color: #f44336;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .dashboard {
+    .progress-overview .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

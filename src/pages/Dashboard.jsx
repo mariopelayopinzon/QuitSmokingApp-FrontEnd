@@ -74,7 +74,7 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Bienvenido, {user?.name || 'Usuario'}</h1>
+        <h1>Bienvenido, {user?.name}</h1>
       </header>
 
       <section className="progress-overview">
